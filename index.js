@@ -6,7 +6,7 @@ class NodeHTMLElement {
     this.id = "";
     this.className = "";
     this.style = {};
-    if (!!htmlValueElements.find(v => v == tag)) this.value = "";
+    if (!!htmlValueElements.find(v => v === tag)) this.value = "";
     else this.innerHTML = "";
     this.localName = tag;
     this.hidden = false;
@@ -31,7 +31,9 @@ class NodeHTMLElement {
           else that.className = that.className.replace(" " + item, "");
         });
       },
-      contains(item) {return that.className.includes(item);}
+      contains(item) {
+        return that.className.includes(item);
+      }
     };
   }
   get outerHTML() {
@@ -85,10 +87,18 @@ class NodeHTMLElement {
     if (!deep) newElement.innerHTML = "";
     return newElement;
   }
-  setAttribute(qualifiedName, value) {attrs[qualifiedName] = value;}
-  getAttribute(qualifiedName) {return attrs[qualifiedName];}
-  hasAttribute(qualifiedName) {return qualifiedName in attrs;}
-  removeAttribute(qualifiedName) {return delete attrs[qualifiedName];}
+  setAttribute(qualifiedName, value) {
+    attrs[qualifiedName] = value;
+  }
+  getAttribute(qualifiedName) {
+    return !!attrs[qualifiedName];
+  }
+  hasAttribute(qualifiedName) {
+    return qualifiedName in attrs;
+  }
+  removeAttribute(qualifiedName) {
+    return delete attrs[qualifiedName];
+  }
 }
 function createElement(tag) {
   return new NodeHTMLElement(tag);
